@@ -63,13 +63,11 @@ public class Owner {
 
     /**
      * No args constructor for use in serialization
-     * 
      */
     public Owner() {
     }
 
     /**
-     * 
      * @param eventsUrl
      * @param siteAdmin
      * @param gistsUrl

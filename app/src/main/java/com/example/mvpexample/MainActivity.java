@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements MainInterface.Vie
         intent.putParcelableArrayListExtra("data", githubRepository);
         intent.putExtra("image", image);
         intent.putExtra("name", inputText.getText().toString());
-        intent.putStringArrayListExtra("language",getLanguage(githubRepository));
+        intent.putStringArrayListExtra("language", getLanguage(githubRepository));
         startActivity(intent);
     }
 

@@ -102,13 +102,11 @@ public class Github {
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public Github() {
     }
 
     /**
-     *
      * @param eventsUrl
      * @param location
      * @param publicRepos

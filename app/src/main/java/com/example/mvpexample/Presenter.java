@@ -28,7 +28,7 @@ public class Presenter implements MainInterface.Presenter {
             public void error(String message) {
                 mView.showError(message);
             }
-        },userName);
+        }, userName);
 
     }
 
@@ -44,7 +44,7 @@ public class Presenter implements MainInterface.Presenter {
             public void error(String message) {
                 mView.showError(message);
             }
-        },userName);
+        }, userName);
     }
 
 

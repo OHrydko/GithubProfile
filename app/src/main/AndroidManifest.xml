@@ -10,6 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".App"
         android:theme="@style/AppTheme">
         <activity android:name=".RepositoryActivity"
             android:parentActivityName=".MainActivity"></activity>
@@ -21,5 +22,6 @@
             </intent-filter>
         </activity>
     </application>
+
 
 </manifest>

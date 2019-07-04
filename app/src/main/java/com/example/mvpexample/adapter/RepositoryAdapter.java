@@ -49,26 +49,27 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView repo_name,language;
+        private TextView repo_name, language;
         private ImageView square;
+
         public ViewHolder(View view) {
             super(view);
 
-            repo_name = (TextView)view.findViewById(R.id.repo_name);
+            repo_name = (TextView) view.findViewById(R.id.repo_name);
 
-            language = (TextView)view.findViewById(R.id.language);
-            square = (ImageView)view.findViewById(R.id.square);
+            language = (TextView) view.findViewById(R.id.language);
+            square = (ImageView) view.findViewById(R.id.square);
             view.setOnClickListener(this::onClick);
 
         }
 
-        public void bind(GithubRepository githubRepositori){
+        public void bind(GithubRepository githubRepositori) {
             repo_name.setText(githubRepositori.getName());
 
-            if(githubRepositori.getLanguage()!=null){
+            if (githubRepositori.getLanguage() != null) {
                 square.setVisibility(View.VISIBLE);
                 language.setText(String.valueOf(githubRepositori.getLanguage()));
-            }else{
+            } else {
                 square.setVisibility(View.INVISIBLE);
                 language.setText(" ");
             }
@@ -79,7 +80,7 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Vi
         @Override
         public void onClick(View v) {
             Uri uri = Uri.parse(githubArrayList.get(getAdapterPosition()).getHtmlUrl());
-            Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             context.startActivity(intent);
         }
     }

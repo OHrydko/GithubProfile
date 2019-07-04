@@ -8,11 +8,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Retrofitadapter {
     static Retrofit retrofit;
-    static Gson gson;
+
     public static final String BASE_URL = "https://api.github.com/";
 
-    public static synchronized Retrofit getInstance(){
-        if (retrofit == null){
+    public static synchronized Retrofit getInstance() {
+        if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())

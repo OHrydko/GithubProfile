@@ -42,7 +42,7 @@ public class RepositoryActivity extends AppCompatActivity {
         String image = intent.getStringExtra("image");
         String name = intent.getStringExtra("name");
         ArrayList<String> language = intent.getStringArrayListExtra("language");
-        setLanguages(githubRepositories,language);
+        setLanguages(githubRepositories, language);
         initRecyclerView();
 
         if (githubRepositories.size() != 0) {
@@ -56,14 +56,16 @@ public class RepositoryActivity extends AppCompatActivity {
             list.setText("In this User hasn't repositori");
         }
     }
-    private void initRecyclerView(){
+
+    private void initRecyclerView() {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
     }
+
     private ArrayList<GithubRepository> setLanguages(ArrayList<GithubRepository> githubRepositories,
-                                                    ArrayList<String> arrayList) {
-        for (int i = 0;i<githubRepositories.size();i++ ){
+                                                     ArrayList<String> arrayList) {
+        for (int i = 0; i < githubRepositories.size(); i++) {
             githubRepositories.get(i).setLanguage(arrayList.get(i));
         }
         return githubRepositories;

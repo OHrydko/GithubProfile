@@ -228,13 +228,11 @@ public class GithubRepository implements Parcelable {
 
     /**
      * No args constructor for use in serialization
-     * 
      */
     public GithubRepository() {
     }
 
     /**
-     * 
      * @param notificationsUrl
      * @param releasesUrl
      * @param pushedAt
@@ -1105,7 +1103,6 @@ public class GithubRepository implements Parcelable {
     public void setDefaultBranch(String defaultBranch) {
         this.defaultBranch = defaultBranch;
     }
-
 
 
     @Override
