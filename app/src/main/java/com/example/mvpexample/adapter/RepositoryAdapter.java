@@ -1,6 +1,6 @@
 package com.example.mvpexample.adapter;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -39,14 +39,7 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         GithubRepository github = githubArrayList.get(position);
-
-            holder.bind(github);
-
-
-
-
-
-
+        holder.bind(github);
     }
 
     @Override
