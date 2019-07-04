@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RepositoryActivity extends AppCompatActivity {
-    ArrayList<GithubRepository> githubRepositories;
+    private ArrayList<GithubRepository> githubRepositories;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -29,7 +29,7 @@ public class RepositoryActivity extends AppCompatActivity {
     @BindView(R.id.avatar_repo)
     ImageView avatarRepo;
 
-    RepositoryAdapter repositoryAdapter;
+    private RepositoryAdapter repositoryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

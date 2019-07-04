@@ -21,8 +21,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements MainInterface.View {
 
-    MainInterface.Presenter presenter;
-    String image;
+    private MainInterface.Presenter presenter;
+    private String image;
 
     @BindView(R.id.find)
     Button find;
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements MainInterface.Vie
         startActivity(intent);
     }
 
-    public ArrayList<String> getLanguage(ArrayList<GithubRepository> githubRepositories) {
+    private ArrayList<String> getLanguage(ArrayList<GithubRepository> githubRepositories) {
         ArrayList<String> language = new ArrayList<>();
         for (int i = 0; i < githubRepositories.size(); i++) {
             language.add((String) githubRepositories.get(i).getLanguage());
