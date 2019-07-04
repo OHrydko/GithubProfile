@@ -15,7 +15,7 @@ public interface MainInterface {
 
     interface View {
         void showUser(Github github);
-
+        void showError(String errors);
         void showRepository(ArrayList<GithubRepository> githubRepository);
     }
 

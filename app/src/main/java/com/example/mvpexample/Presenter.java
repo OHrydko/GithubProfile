@@ -26,7 +26,7 @@ public class Presenter implements MainInterface.Presenter {
 
             @Override
             public void error(String message) {
-
+                mView.showError(message);
             }
         },userName);
 
@@ -42,7 +42,7 @@ public class Presenter implements MainInterface.Presenter {
 
             @Override
             public void error(String message) {
-
+                mView.showError(message);
             }
         },userName);
     }

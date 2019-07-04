@@ -1,12 +1,15 @@
 package com.example.mvpexample;
 
 
+import android.annotation.SuppressLint;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
 public class Model implements MainInterface.Model {
 
+    @SuppressLint("CheckResult")
     @Override
     public void load(CallBackGithub callBackGithub, String userName) {
         NetworkUtils.getService().getProfile(userName)

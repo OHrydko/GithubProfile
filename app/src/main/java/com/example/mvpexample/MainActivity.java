@@ -97,6 +97,11 @@ public class MainActivity extends AppCompatActivity implements MainInterface.Vie
     }
 
     @Override
+    public void showError(String errors) {
+        error.setText(errors);
+    }
+
+    @Override
     public void showRepository(ArrayList<GithubRepository> githubRepository) {
         Intent intent = new Intent(this, RepositoryActivity.class);
         intent.putParcelableArrayListExtra("data", githubRepository);
