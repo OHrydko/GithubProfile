@@ -1,13 +1,14 @@
 package com.example.mvpexample.adapter;
 
 
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mvpexample.R;
 import com.example.mvpexample.callback.onItemClick;
@@ -15,16 +16,16 @@ import com.example.mvpexample.model.GithubRepository;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.ViewHolder> {
-    private ArrayList<GithubRepository> githubArrayList;
+    private List<GithubRepository> githubArrayList;
     private onItemClick onItemClick;
 
-    public RepositoryAdapter(ArrayList<GithubRepository> githubArrayList,
+    public RepositoryAdapter(List<GithubRepository> githubArrayList,
                              onItemClick onItemClick) {
         this.githubArrayList = githubArrayList;
         this.onItemClick = onItemClick;
@@ -46,10 +47,10 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Vi
         holder.repoName.setText(github.getName());
 
         holder.language.setText(github.getLanguage() != null ?
-                String.valueOf(github.getLanguage()) : "");
+                github.getLanguage() : "");
         holder.square.setVisibility(github.getLanguage() != null ? View.VISIBLE : View.GONE);
 
-        holder.cardView.setOnClickListener(view -> onItemClick.click(position));
+        holder.cardView.setOnClickListener(view -> onItemClick.click(github.getHtml_url(), github.getName()));
 
     }
 

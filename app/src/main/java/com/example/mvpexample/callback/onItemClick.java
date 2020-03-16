@@ -1,5 +1,5 @@
 package com.example.mvpexample.callback;
 
 public interface onItemClick {
-    void click(int position);
+    void click(String url,String name);
 }

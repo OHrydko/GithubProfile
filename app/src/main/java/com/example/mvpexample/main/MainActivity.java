@@ -1,4 +1,4 @@
-package com.example.mvpexample;
+package com.example.mvpexample.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
+import com.example.mvpexample.R;
 import com.example.mvpexample.model.Github;
-import com.example.mvpexample.model.GithubRepository;
-
-import java.util.ArrayList;
+import com.example.mvpexample.repository.RepositoryActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +22,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity implements MainInterface.View {
 
     private MainInterface.Presenter presenter;
-    private String image;
 
     @BindView(R.id.find)
     Button find;
@@ -49,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements MainInterface.Vie
     @BindView(R.id.linearLayoutClick)
     ConstraintLayout constraintLayout;
 
+    @BindView(R.id.containerLouder)
+    ConstraintLayout loader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements MainInterface.Vie
         find.setOnClickListener(v ->
                 presenter.onButtonWasClicked(inputText.getText().toString()));
 
-        constraintLayout.setOnClickListener(v ->
-                presenter.sendUserRepository(inputText.getText().toString()));
+        constraintLayout.setOnClickListener(v -> startActivity(new Intent(this, RepositoryActivity.class)
+                .putExtra("name", inputText.getText().toString())));
 
     }
 
@@ -71,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements MainInterface.Vie
         name.setText(github.getName());
         error.setVisibility(View.INVISIBLE);
         name.setText(github.getLogin());
-        image = github.getAvatarUrl();
 
         if (github.getLocation() != null) {
 
@@ -79,10 +79,10 @@ public class MainActivity extends AppCompatActivity implements MainInterface.Vie
                     .into(ic_location);
 
         }
-        location.setText((github.getLocation() != null) ? String.valueOf(github.getLocation()) : "");
+        location.setText((github.getLocation() != null) ? github.getLocation() : "");
         ic_location.setVisibility((github.getLocation() != null) ? View.VISIBLE : View.INVISIBLE);
 
-        Glide.with(MainActivity.this).load(github.getAvatarUrl()).into(avatar);
+        Glide.with(MainActivity.this).load(github.getAvatar_url()).into(avatar);
 
     }
 
@@ -92,20 +92,15 @@ public class MainActivity extends AppCompatActivity implements MainInterface.Vie
     }
 
     @Override
-    public void showRepository(ArrayList<GithubRepository> githubRepository) {
-        Intent intent = new Intent(this, RepositoryActivity.class);
-        intent.putParcelableArrayListExtra("data", githubRepository);
-        intent.putExtra("image", image);
-        intent.putExtra("name", inputText.getText().toString());
-        intent.putStringArrayListExtra("language", getLanguage(githubRepository));
-        startActivity(intent);
+    public void showLoading() {
+        loader.setVisibility(View.VISIBLE);
     }
 
-    private ArrayList<String> getLanguage(ArrayList<GithubRepository> githubRepositories) {
-        ArrayList<String> language = new ArrayList<>();
-        for (int i = 0; i < githubRepositories.size(); i++) {
-            language.add((String) githubRepositories.get(i).getLanguage());
-        }
-        return language;
+    @Override
+    public void hideLoading() {
+        loader.setVisibility(View.GONE);
+
     }
+
+
 }

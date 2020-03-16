@@ -3,4 +3,7 @@
     <string name="repository">In this User hasn\'t repository</string>
     <string name="enter_your_github_name">Enter your github name</string>
     <string name="find">find</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
