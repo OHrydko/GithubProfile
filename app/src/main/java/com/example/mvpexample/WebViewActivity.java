@@ -33,6 +33,7 @@ public class WebViewActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient());
 
         webView.loadUrl(getIntent().getStringExtra("url"));
+
     }
 
     @Override
