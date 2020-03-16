@@ -1,5 +1,7 @@
 package com.example.mvpexample;
 
+import com.example.mvpexample.callback.CallBackGithub;
+import com.example.mvpexample.callback.CallBackRepository;
 import com.example.mvpexample.model.Github;
 import com.example.mvpexample.model.GithubRepository;
 
@@ -25,7 +27,5 @@ public interface MainInterface {
         void onButtonWasClicked(String userName);
 
         void sendUserRepository(String userName);
-
-        void onDestroy();
     }
 }

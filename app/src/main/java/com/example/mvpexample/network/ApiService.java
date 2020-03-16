@@ -1,4 +1,4 @@
-package com.example.mvpexample;
+package com.example.mvpexample.network;
 
 import com.example.mvpexample.model.Github;
 import com.example.mvpexample.model.GithubRepository;

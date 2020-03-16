@@ -1,4 +1,4 @@
-package com.example.mvpexample;
+package com.example.mvpexample.callback;
 
 import com.example.mvpexample.model.GithubRepository;
 

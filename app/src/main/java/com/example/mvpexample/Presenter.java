@@ -1,5 +1,7 @@
 package com.example.mvpexample;
 
+import com.example.mvpexample.callback.CallBackGithub;
+import com.example.mvpexample.callback.CallBackRepository;
 import com.example.mvpexample.model.Github;
 import com.example.mvpexample.model.GithubRepository;
 
@@ -7,11 +9,11 @@ import java.util.ArrayList;
 
 public class Presenter implements MainInterface.Presenter {
 
-    MainInterface.Model model;
-    MainInterface.View mView;
+    private MainInterface.Model model;
+    private MainInterface.View mView;
 
 
-    public Presenter(MainInterface.View mView) {
+    Presenter(MainInterface.View mView) {
         this.mView = mView;
         this.model = new Model();
     }
@@ -47,9 +49,4 @@ public class Presenter implements MainInterface.Presenter {
         }, userName);
     }
 
-
-    @Override
-    public void onDestroy() {
-
-    }
 }

@@ -1,6 +1,6 @@
 package com.example.mvpexample.di;
 
-import com.example.mvpexample.ApiService;
+import com.example.mvpexample.network.ApiService;
 
 import dagger.Component;
 

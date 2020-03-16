@@ -1,8 +1,9 @@
 package com.example.mvpexample;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.mvpexample.adapter.RepositoryAdapter;
+import com.example.mvpexample.callback.onItemClick;
 import com.example.mvpexample.model.GithubRepository;
 
 import java.util.ArrayList;
@@ -17,8 +19,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RepositoryActivity extends AppCompatActivity {
-    private ArrayList<GithubRepository> githubRepositories;
+public class RepositoryActivity extends AppCompatActivity implements onItemClick {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -29,7 +30,7 @@ public class RepositoryActivity extends AppCompatActivity {
     @BindView(R.id.avatar_repo)
     ImageView avatarRepo;
 
-    private RepositoryAdapter repositoryAdapter;
+    private ArrayList<GithubRepository> githubRepositories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,28 +47,34 @@ public class RepositoryActivity extends AppCompatActivity {
         initRecyclerView();
 
         if (githubRepositories.size() != 0) {
-            repositoryAdapter = new RepositoryAdapter(githubRepositories, RepositoryActivity.this);
+            RepositoryAdapter repositoryAdapter = new RepositoryAdapter(githubRepositories, this);
             recyclerView.setAdapter(repositoryAdapter);
-            list.setText("List of repository  " + name);
-            //user_name.setText(githubs.get(0).getOwner().getLogin());
+            list.setText(String.format("List of repository  %s", name));
+
             Glide.with(RepositoryActivity.this).load(image)
                     .into(avatarRepo);
         } else {
-            list.setText("In this User hasn't repositori");
+            list.setText(getResources().getString(R.string.repository));
         }
     }
 
     private void initRecyclerView() {
         recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
     }
 
-    private ArrayList<GithubRepository> setLanguages(ArrayList<GithubRepository> githubRepositories,
-                                                     ArrayList<String> arrayList) {
+    private void setLanguages(ArrayList<GithubRepository> githubRepositories,
+                              ArrayList<String> arrayList) {
         for (int i = 0; i < githubRepositories.size(); i++) {
             githubRepositories.get(i).setLanguage(arrayList.get(i));
         }
-        return githubRepositories;
+    }
+
+    @Override
+    public void click(int position) {
+        Uri uri = Uri.parse(githubRepositories.get(position).getHtmlUrl());
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 }

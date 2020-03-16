@@ -1,9 +1,7 @@
 package com.example.mvpexample.adapter;
 
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,23 +9,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.mvpexample.R;
+import com.example.mvpexample.callback.onItemClick;
 import com.example.mvpexample.model.GithubRepository;
 
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.ViewHolder> {
-    private Context context;
-    private ArrayList<GithubRepository> githubArrayList;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    public RepositoryAdapter(ArrayList<GithubRepository> githubArrayList, Context context) {
+public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.ViewHolder> {
+    private ArrayList<GithubRepository> githubArrayList;
+    private onItemClick onItemClick;
+
+    public RepositoryAdapter(ArrayList<GithubRepository> githubArrayList,
+                             onItemClick onItemClick) {
         this.githubArrayList = githubArrayList;
-        this.context = context;
+        this.onItemClick = onItemClick;
     }
 
 
+    @NotNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -39,7 +43,14 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         GithubRepository github = githubArrayList.get(position);
-        holder.bind(github);
+        holder.repoName.setText(github.getName());
+
+        holder.language.setText(github.getLanguage() != null ?
+                String.valueOf(github.getLanguage()) : "");
+        holder.square.setVisibility(github.getLanguage() != null ? View.VISIBLE : View.GONE);
+
+        holder.cardView.setOnClickListener(view -> onItemClick.click(position));
+
     }
 
     @Override
@@ -47,41 +58,19 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Vi
         return githubArrayList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.repo_name)
+        TextView repoName;
+        @BindView(R.id.language)
+        TextView language;
+        @BindView(R.id.square)
+        ImageView square;
+        @BindView(R.id.card)
+        CardView cardView;
 
-        private TextView repo_name, language;
-        private ImageView square;
-
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
-
-            repo_name = (TextView) view.findViewById(R.id.repo_name);
-
-            language = (TextView) view.findViewById(R.id.language);
-            square = (ImageView) view.findViewById(R.id.square);
-            view.setOnClickListener(this::onClick);
-
-        }
-
-        public void bind(GithubRepository githubRepositori) {
-            repo_name.setText(githubRepositori.getName());
-
-            if (githubRepositori.getLanguage() != null) {
-                square.setVisibility(View.VISIBLE);
-                language.setText(String.valueOf(githubRepositori.getLanguage()));
-            } else {
-                square.setVisibility(View.INVISIBLE);
-                language.setText(" ");
-            }
-
-        }
-
-
-        @Override
-        public void onClick(View v) {
-            Uri uri = Uri.parse(githubArrayList.get(getAdapterPosition()).getHtmlUrl());
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            context.startActivity(intent);
+            ButterKnife.bind(this, view);
         }
     }
 }

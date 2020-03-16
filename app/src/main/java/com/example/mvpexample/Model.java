@@ -3,7 +3,8 @@ package com.example.mvpexample;
 
 import android.annotation.SuppressLint;
 
-import javax.inject.Inject;
+import com.example.mvpexample.callback.CallBackGithub;
+import com.example.mvpexample.callback.CallBackRepository;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -12,6 +13,7 @@ import io.reactivex.schedulers.Schedulers;
 public class Model implements MainInterface.Model {
 
 
+    @SuppressLint("CheckResult")
     @Override
     public void load(CallBackGithub callBackGithub, String userName) {
         App.getComponent().getApi().getProfile(userName)
@@ -22,6 +24,7 @@ public class Model implements MainInterface.Model {
 
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void loadRepository(CallBackRepository callBackRepository, String userName) {
         App.getComponent().getApi().getRepos(userName)

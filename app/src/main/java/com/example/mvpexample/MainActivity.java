@@ -1,8 +1,9 @@
 package com.example.mvpexample;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainInterface.Vie
     CircleImageView avatar;
 
     @BindView(R.id.linearLayoutClick)
-    LinearLayout linearLayout;
+    ConstraintLayout constraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,41 +57,30 @@ public class MainActivity extends AppCompatActivity implements MainInterface.Vie
 
         presenter = new Presenter(this);
 
-        find.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onButtonWasClicked(inputText.getText().toString());
-            }
-        });
+        find.setOnClickListener(v ->
+                presenter.onButtonWasClicked(inputText.getText().toString()));
 
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.sendUserRepository(inputText.getText().toString());
-            }
-        });
-
+        constraintLayout.setOnClickListener(v ->
+                presenter.sendUserRepository(inputText.getText().toString()));
 
     }
 
     @Override
     public void showUser(Github github) {
-        linearLayout.setVisibility(View.VISIBLE);
+        constraintLayout.setVisibility(View.VISIBLE);
         name.setText(github.getName());
         error.setVisibility(View.INVISIBLE);
         name.setText(github.getLogin());
         image = github.getAvatarUrl();
+
         if (github.getLocation() != null) {
 
-            ic_location.setVisibility(View.VISIBLE);
             Glide.with(MainActivity.this).load(R.drawable.ic_location_on_black_24dp)
                     .into(ic_location);
-            location.setText(String.valueOf(github.getLocation()));
 
-        } else {
-            ic_location.setVisibility(View.INVISIBLE);
-            location.setText(String.valueOf(" "));
         }
+        location.setText((github.getLocation() != null) ? String.valueOf(github.getLocation()) : "");
+        ic_location.setVisibility((github.getLocation() != null) ? View.VISIBLE : View.INVISIBLE);
 
         Glide.with(MainActivity.this).load(github.getAvatarUrl()).into(avatar);
 
