@@ -6,18 +6,17 @@ import com.example.mvpexample.db.Dao;
 import com.example.mvpexample.network.ApiService;
 
 import dagger.BindsInstance;
-import dagger.Component;
 
 
-@Component(modules = {RetrofitModule.class, RoomModule.class})
-public interface RetrofitComponent {
+@dagger.Component(modules = {RetrofitModule.class, RoomModule.class})
+public interface Component {
     ApiService getApi();
 
     Dao getDao();
 
-    @Component.Builder
+    @dagger.Component.Builder
     interface Builder {
-        RetrofitComponent build();
+        Component build();
 
         Builder retrofitModule(RetrofitModule retrofitModule);
 
@@ -25,7 +24,6 @@ public interface RetrofitComponent {
 
         @BindsInstance
         Builder application(Application application);
-
 
     }
 }

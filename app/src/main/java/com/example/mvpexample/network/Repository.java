@@ -14,7 +14,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class Repository {
 
-
     @SuppressLint("CheckResult")
     public void load(CallBackGithub callBackGithub, String userName) {
         App.getComponent().getApi().getProfile(userName)

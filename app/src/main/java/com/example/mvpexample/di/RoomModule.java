@@ -1,7 +1,6 @@
 package com.example.mvpexample.di;
 
 import android.app.Application;
-import android.content.Context;
 
 import androidx.room.Room;
 
