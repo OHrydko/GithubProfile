@@ -6,6 +6,7 @@ import com.example.mvpexample.di.Component;
 import com.example.mvpexample.di.DaggerComponent;
 import com.example.mvpexample.di.RetrofitModule;
 import com.example.mvpexample.di.RoomModule;
+import com.facebook.stetho.Stetho;
 
 public class App extends Application {
 
@@ -14,6 +15,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Stetho.initializeWithDefaults(this);
         component = DaggerComponent.builder()
                 .application(this)
                 .retrofitModule(new RetrofitModule())

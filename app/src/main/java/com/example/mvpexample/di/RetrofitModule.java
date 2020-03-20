@@ -1,9 +1,11 @@
 package com.example.mvpexample.di;
 
 import com.example.mvpexample.network.ApiService;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -20,10 +22,14 @@ public class RetrofitModule {
 
     @Provides
     Retrofit getRetrofit() {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addNetworkInterceptor(new StethoInterceptor())
+                .build();
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(client)
                 .build();
     }
 }
