@@ -15,6 +15,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //if gebug
         Stetho.initializeWithDefaults(this);
         component = DaggerComponent.builder()
                 .application(this)

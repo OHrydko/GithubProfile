@@ -21,15 +21,19 @@ public class RetrofitModule {
     }
 
     @Provides
-    Retrofit getRetrofit() {
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addNetworkInterceptor(new StethoInterceptor())
-                .build();
+    Retrofit getRetrofit(OkHttpClient client) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
+                .build();
+    }
+
+    @Provides
+    OkHttpClient getClient() {
+        return new OkHttpClient.Builder()
+                .addNetworkInterceptor(new StethoInterceptor())
                 .build();
     }
 }
